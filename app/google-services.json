@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "541864181387",
+    "firebase_url": "https://helbby-cabg-021293.firebaseio.com",
+    "project_id": "helbby-cabg-021293",
+    "storage_bucket": "helbby-cabg-021293.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:541864181387:android:a292c40ab80f32f8",
+        "android_client_info": {
+          "package_name": "com.helbby.helbbyapp.cabg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "541864181387-9cdgfbgt3tigtvlpgeiea06qm7lqivia.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.helbby.helbbyapp.cabg",
+            "certificate_hash": "ad1f410f0c2d8f662eac9f97b2348b09a98e63e7"
+          }
+        },
+        {
+          "client_id": "541864181387-p7kqo83s73d8783stu5blu64e6fk7p7p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTZYKL9E3jWXnetXBqlOjm57ZAi-X07WU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "541864181387-p7kqo83s73d8783stu5blu64e6fk7p7p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
