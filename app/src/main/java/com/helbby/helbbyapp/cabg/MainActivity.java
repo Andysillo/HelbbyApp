@@ -1,11 +1,16 @@
 package com.helbby.helbbyapp.cabg;
 
 import android.content.Intent;
+
 import android.graphics.Typeface;
+
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
@@ -17,20 +22,34 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     public static final int SIGN_IN_CODE = 777;
-    TextView textViewHelbby;
+    TextView textViewHelbby, textView10;
     LoginButton buttonFacebook;
     GoogleApiClient googleApiClient;
     CallbackManager callbackManager;
     SignInButton signInButton;
+    Button registrarse, ingresa_email;
+    FirebaseAuth firebaseAuth;
+    FirebaseAuth.AuthStateListener firebaseAuthListener;
+    ProgressBar progressBar;
+    ImageView imageViewFondo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         // Inicializacion de botton google//
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .build();
 
         googleApiClient = new GoogleApiClient.Builder(this)
@@ -74,13 +95,43 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         });
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null){
+                    goMainScreen();
+                }
+            }
+        };
+
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        registrarse = (Button) findViewById(R.id.registrarse);
+        textView10 = (TextView) findViewById(R.id.textView10);
+        ingresa_email = (Button) findViewById(R.id.ingresa_email);
+        imageViewFondo = (ImageView) findViewById(R.id.imageViewFondo);
+
+
+
 
         // Cambiar fuente texview helbby //
-        textViewHelbby = (TextView) findViewById(R.id.helbby);
+        textViewHelbby = (TextView) findViewById(R.id.textHelbby);
         Typeface fuente = Typeface.createFromAsset(getAssets(), "fonts/Anydore.otf");
         textViewHelbby.setTypeface(fuente);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        firebaseAuth.addAuthStateListener(firebaseAuthListener);
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -95,8 +146,39 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()){
-            goMainScreen();
+            firebaseAuthWithGoogle(result.getSignInAccount());
         }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount signInAccount) {
+
+        progressBar.setVisibility(View.VISIBLE);
+        buttonFacebook.setVisibility(View.GONE);
+        signInButton.setVisibility(View.GONE);
+        registrarse.setVisibility(View.GONE);
+        textView10.setVisibility(View.GONE);
+        ingresa_email.setVisibility(View.GONE);
+        imageViewFondo.setVisibility(View.GONE);
+        textViewHelbby.setVisibility(View.GONE);
+
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(Task<AuthResult> task) {
+                progressBar.setVisibility(View.GONE);
+                buttonFacebook.setVisibility(View.VISIBLE);
+                signInButton.setVisibility(View.VISIBLE);
+                registrarse.setVisibility(View.VISIBLE);
+                textView10.setVisibility(View.VISIBLE);
+                ingresa_email.setVisibility(View.VISIBLE);
+                imageViewFondo.setVisibility(View.VISIBLE);
+                textViewHelbby.setVisibility(View.VISIBLE);
+                if (task.isSuccessful()){
+                }
+
+            }
+        });
     }
 
     private void goMainScreen() {
@@ -106,7 +188,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    protected void onStop() {
+        super.onStop();
 
+        if (firebaseAuthListener != null){
+            firebaseAuth.removeAuthStateListener(firebaseAuthListener);
+        }
     }
 }
