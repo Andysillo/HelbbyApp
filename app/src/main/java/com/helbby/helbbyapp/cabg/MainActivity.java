@@ -107,12 +107,28 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         };
 
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        registrarse = (Button) findViewById(R.id.registrarse);
         textView10 = (TextView) findViewById(R.id.textView10);
-        ingresa_email = (Button) findViewById(R.id.ingresa_email);
         imageViewFondo = (ImageView) findViewById(R.id.imageViewFondo);
 
+        registrarse = (Button) findViewById(R.id.registrarse);
+        registrarse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentRegistrarse = new Intent(MainActivity.this, RegistroActivity.class);
+                startActivity(intentRegistrarse);
+                overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+            }
+        });
 
+        ingresa_email = (Button) findViewById(R.id.ingresa_email);
+        ingresa_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentRegistrarse = new Intent(MainActivity.this, LoginEmailActivity.class);
+                startActivity(intentRegistrarse);
+                overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+            }
+        });
 
 
         // Cambiar fuente texview helbby //
