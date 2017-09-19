@@ -9,4 +9,8 @@
     <string name="email">Email</string>
     <string name="contraseña">Contraseña</string>
     <string name="enviar">Enviar</string>
+    <string name="registrate">Registrarse</string>
+    <string name="emailRegis">Email</string>
+    <string name="passRegis">Contraseña</string>
+    <string name="nombreRegis">Nombre</string>
 </resources>

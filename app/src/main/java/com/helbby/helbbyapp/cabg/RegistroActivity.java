@@ -1,14 +1,88 @@
 package com.helbby.helbbyapp.cabg;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class RegistroActivity extends AppCompatActivity {
+
+    FirebaseAuth auth;
+    FirebaseAuth.AuthStateListener mAuthListener;
+    EditText etNombre, etEmail, etPass;
+    Button btRegis;
+    ProgressDialog mProgress;
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        auth.addAuthStateListener(mAuthListener);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
+        auth = FirebaseAuth.getInstance();
+
+        etNombre = (EditText) findViewById(R.id.nombre);
+        etEmail = (EditText) findViewById(R.id.email);
+        etPass = (EditText) findViewById(R.id.password);
+
+
+        mProgress = new ProgressDialog(this);
+        btRegis = (Button) findViewById(R.id.buttonRegistrarse);
+        btRegis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startRegister();
+            }
+        });
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() != null) {
+                    Intent intent = new Intent(RegistroActivity.this, HelbbyActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        };
+    }
+
+    private void startRegister() {
+        String name = etNombre.getText().toString().trim();
+        final String email = etEmail.getText().toString().trim();
+        final String password = etPass.getText().toString().trim();
+
+        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+            mProgress.setMessage("Registering, please wait...");
+            mProgress.show();
+            auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(Task<AuthResult> task) {
+                            mProgress.dismiss();
+                            if (task.isSuccessful()) {
+                                auth.signInWithEmailAndPassword(email, password);
+
+                            }
+
+                        }
+                    });
+        }
+
     }
 
     @Override
