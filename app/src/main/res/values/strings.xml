@@ -4,4 +4,9 @@
     <string name="registrarse">Registrate con tu email</string>
     <string name="registrado_con_email">¿Estás registrado con tu email?</string>
     <string name="ingresa_email">Ingresa con tu e-mail</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="olvidaste_contraseña">¿Olvidaste tu contraseña?</string>
+    <string name="email">Email</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="enviar">Enviar</string>
 </resources>

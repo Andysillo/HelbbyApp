@@ -10,7 +10,6 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/colorPrimary"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="16sp">
@@ -21,14 +20,13 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/emailLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:hint="Email"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:textColor="@color/md_black_1000"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -36,38 +34,37 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/passwordLogin"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:hint="Password"
+                android:hint="@string/contraseña"
                 android:inputType="textPassword"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:textColor="@color/md_black_1000"/>
         </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/olvidarContra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="15sp"
+            android:background="@null"
+            android:text="@string/olvidaste_contraseña"
+            android:textAllCaps="false"
+            android:textColor="@color/md_grey_400" />
 
         <!-- Login Button -->
 
         <Button
-            android:id="@+id/btn_login"
+            android:id="@+id/buttonIngresar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@color/colorAccent"
-            android:text="Ingresar"
-            android:textColor="@android:color/black" />
+            android:background="@drawable/button_color"
+            android:hint="@string/ingresar"
+            android:textSize="13sp"
+            android:textColorHint="@color/md_indigo_300" />
 
-        <Button
-            android:id="@+id/btn_reset_password"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@null"
-            android:text="Olvido contraseña"
-            android:textAllCaps="false"
-            android:textColor="@color/colorAccent" />
-
-        <!-- Link to Login Screen -->
 
     </LinearLayout>
 

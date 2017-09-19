@@ -65,10 +65,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/button_color"
         android:hint="@string/registrarse"
-        android:textSize="15sp"
+        android:textSize="13sp"
         android:layout_marginRight="25sp"
         android:layout_marginLeft="20sp"
-        android:textColorHint="@color/md_green_300"
+        android:textColorHint="@color/md_indigo_300"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/button_google"
         android:layout_centerHorizontal="true" />
@@ -79,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="29dp"
         android:text="@string/registrado_con_email"
-        android:textColor="@color/md_blue_grey_300"
+        android:textColor="@color/md_blue_grey_400"
         android:layout_below="@+id/registrarse"
         android:layout_centerHorizontal="true" />
 
@@ -90,7 +90,7 @@
         android:layout_gravity="right"
         android:background="@android:color/transparent"
         android:hint="@string/ingresa_email"
-        android:textColorHint="@color/md_green_300"
+        android:textColorHint="@color/md_indigo_300"
         android:layout_marginTop="13dp"
         android:layout_below="@+id/textView10"
         android:layout_centerHorizontal="true" />
