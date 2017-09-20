@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -32,6 +34,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthCredential;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         buttonFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                goMainScreen();
+                handleFacebookAccessToken(loginResult.getAccessToken());
             }
             @Override
             public void onCancel() {
@@ -135,6 +139,35 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         textViewHelbby = (TextView) findViewById(R.id.textHelbby);
         Typeface fuente = Typeface.createFromAsset(getAssets(), "fonts/Anydore.otf");
         textViewHelbby.setTypeface(fuente);
+    }
+
+    private void handleFacebookAccessToken(AccessToken accessToken) {
+        progressBar.setVisibility(View.VISIBLE);
+        buttonFacebook.setVisibility(View.GONE);
+        signInButton.setVisibility(View.GONE);
+        registrarse.setVisibility(View.GONE);
+        textView10.setVisibility(View.GONE);
+        ingresa_email.setVisibility(View.GONE);
+        imageViewFondo.setVisibility(View.GONE);
+        textViewHelbby.setVisibility(View.GONE);
+        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(Task<AuthResult> task) {
+                progressBar.setVisibility(View.GONE);
+                buttonFacebook.setVisibility(View.VISIBLE);
+                signInButton.setVisibility(View.VISIBLE);
+                registrarse.setVisibility(View.VISIBLE);
+                textView10.setVisibility(View.VISIBLE);
+                ingresa_email.setVisibility(View.VISIBLE);
+                imageViewFondo.setVisibility(View.VISIBLE);
+                textViewHelbby.setVisibility(View.VISIBLE);
+                if (!task.isSuccessful()){
+                }
+
+            }
+        });
+
     }
 
     @Override
