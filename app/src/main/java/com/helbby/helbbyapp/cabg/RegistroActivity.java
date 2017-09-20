@@ -56,6 +56,7 @@ public class RegistroActivity extends AppCompatActivity {
                 if (firebaseAuth.getCurrentUser() != null) {
                     Intent intent = new Intent(RegistroActivity.this, HelbbyActivity.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.trans_zoom_forward_in, R.anim.trans_zoom_forward_out);
                     finish();
                 }
             }
