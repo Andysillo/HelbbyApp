@@ -1,12 +1,9 @@
 package com.helbby.helbbyapp.cabg;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-
 import com.facebook.AccessToken;
-
 
 public class HelbbyActivity extends AppCompatActivity {
 
@@ -16,11 +13,5 @@ public class HelbbyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_helbby);
 
         AccessToken.getCurrentAccessToken();
-
-
-
     }
-
-
-
 }
