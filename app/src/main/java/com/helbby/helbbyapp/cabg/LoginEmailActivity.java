@@ -22,6 +22,7 @@ public class LoginEmailActivity extends AppCompatActivity {
     EditText etEmail, etPass;
     FirebaseAuth auth;
     FirebaseAuth.AuthStateListener mAuthListener;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class LoginEmailActivity extends AppCompatActivity {
 
         etEmail = (EditText) findViewById(R.id.emailLogin);
         etPass = (EditText) findViewById(R.id.passwordLogin);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
 
         buttonIngresa = (Button) findViewById(R.id.buttonIngresar);
@@ -79,10 +81,18 @@ public class LoginEmailActivity extends AppCompatActivity {
         final String email = etEmail.getText().toString();
         final String password = etPass.getText().toString();
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+            progressBar.setVisibility(View.VISIBLE);
+            etEmail.setVisibility(View.GONE);
+            etPass.setVisibility(View.GONE);
+            buttonIngresa.setVisibility(View.GONE);
             auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(Task<AuthResult> task) {
+                            progressBar.setVisibility(View.GONE);
+                            etEmail.setVisibility(View.VISIBLE);
+                            etPass.setVisibility(View.VISIBLE);
+                            buttonIngresa.setVisibility(View.VISIBLE);
                             if (task.isSuccessful()) {
                                 auth.signInWithEmailAndPassword(email, password);
                             }
