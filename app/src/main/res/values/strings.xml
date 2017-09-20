@@ -13,4 +13,8 @@
     <string name="emailRegis">Email</string>
     <string name="passRegis">Contraseña</string>
     <string name="nombreRegis">Nombre</string>
+    <string name="escriba_nombre">¡Digite nombre!</string>
+    <string name="escriba_email">¡Digite correctamente su email!</string>
+    <string name="escriba_contra">¡Digite correctamente su contraseña!</string>
+    <string name="contra_corta">¡Contraseña demasiado corta, digite un mínimo de 8 caracteres!</string>
 </resources>

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -66,24 +67,41 @@ public class RegistroActivity extends AppCompatActivity {
         final String email = etEmail.getText().toString().trim();
         final String password = etPass.getText().toString().trim();
 
-        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-            mProgress.setMessage("Registering, please wait...");
-            mProgress.show();
-            auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(Task<AuthResult> task) {
-                            mProgress.dismiss();
-                            if (task.isSuccessful()) {
-                                auth.signInWithEmailAndPassword(email, password);
-
-                            }
-
-                        }
-                    });
+        if (TextUtils.isEmpty(name)) {
+            etNombre.setError(getText(R.string.escriba_nombre));
+            return;
+        }
+        if (TextUtils.isEmpty(email)) {
+            etEmail.setError(getText(R.string.escriba_email));
+            return;
         }
 
+        if (TextUtils.isEmpty(password)) {
+            etPass.setError(getText(R.string.escriba_contra));
+            return;
+        }
+
+        if (password.length() < 8) {
+            etPass.setError(getText(R.string.contra_corta));
+            return;
+        }
+        mProgress.setMessage("Registering, please wait...");
+        mProgress.show();
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(Task<AuthResult> task) {
+                        mProgress.dismiss();
+                        if (task.isSuccessful()) {
+                            auth.signInWithEmailAndPassword(email, password);
+
+                        }
+
+                    }
+                });
     }
+
+
 
     @Override
     public void onBackPressed() {
