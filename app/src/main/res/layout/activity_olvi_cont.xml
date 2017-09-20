@@ -19,7 +19,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/emailLogin"
+                android:id="@+id/emailRecuperar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
@@ -28,13 +28,20 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/btn_reset_password"
+            android:id="@+id/button_recuperar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:background="@drawable/button_color"
             android:text="@string/enviar"
             android:textColor="@color/md_indigo_300" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
 
 
 
