@@ -12,11 +12,11 @@ public class HelbbyActivity extends AppCompatActivity {
     TabLayout tabLayoutHelbby;
     ViewPager viewPagerHelbby;
     private int[] tabIcons = {
+            R.mipmap.ic_action_preg,
+            R.mipmap.ic_action_category,
             R.mipmap.ic_launcher,
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher,
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher
+            R.mipmap.ic_action_chat,
+            R.mipmap.ic_action_name
     };
 
     @Override
