@@ -17,4 +17,5 @@
     <string name="escriba_email">¡Digite correctamente su email!</string>
     <string name="escriba_contra">¡Digite correctamente su contraseña!</string>
     <string name="contra_corta">¡Contraseña demasiado corta, digite un mínimo de 8 caracteres!</string>
+    <string name="auth_failed">Error en la autenticación, comprueba tu correo electrónico y contraseña o regístrate</string>
 </resources>
