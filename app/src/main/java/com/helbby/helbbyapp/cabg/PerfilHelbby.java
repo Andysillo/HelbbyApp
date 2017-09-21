@@ -7,8 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -19,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class PerfilHelbby extends Fragment {
 
     TextView nameTextView, emailTextView, idTextView;
+    ImageView photoView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,12 +30,13 @@ public class PerfilHelbby extends Fragment {
         nameTextView = view.findViewById(R.id.nameTextView);
         emailTextView = view.findViewById(R.id.emailTextView);
         idTextView = view.findViewById(R.id.idTextView);
+        photoView = view.findViewById(R.id.photoView);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null){
             String name = user.getDisplayName();
             String email = user.getEmail();
-            Uri photoURL = user.getPhotoUrl();
+            Glide.with(this).load(user.getPhotoUrl()).into(photoView);
             String uid = user.getUid();
 
             nameTextView.setText(name);
