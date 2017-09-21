@@ -40,6 +40,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     public static final int SIGN_IN_CODE = 777;
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         callbackManager = CallbackManager.Factory.create();
         buttonFacebook= (LoginButton) findViewById(R.id.button_facebook);
+        buttonFacebook.setReadPermissions(Arrays.asList("email"));
         buttonFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
