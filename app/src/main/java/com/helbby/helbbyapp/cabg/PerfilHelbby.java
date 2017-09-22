@@ -28,19 +28,19 @@ public class PerfilHelbby extends Fragment {
         View view = inflater.inflate(R.layout.perfilhelbby,container,false);
 
         nameTextView = view.findViewById(R.id.nameTextView);
-       /* emailTextView = view.findViewById(R.id.emailTextView);
-        idTextView = view.findViewById(R.id.idTextView); */
+        emailTextView = view.findViewById(R.id.emailTextView);
+        // idTextView = view.findViewById(R.id.idTextView);
         photoView = view.findViewById(R.id.photoView);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null){
             String name = user.getDisplayName();
-          //  String email = user.getEmail();
+            String email = user.getEmail();
             Glide.with(this).load(user.getPhotoUrl()).into(photoView);
-          //  String uid = user.getUid();
+          // String uid = user.getUid();
 
             nameTextView.setText(name);
-          //  emailTextView.setText(email);
+            emailTextView.setText(email);
           //  idTextView.setText(uid);
         }else {
             goLoginScreen();
